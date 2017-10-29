@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.demo</groupId>
+    <artifactId>java-gateway-client-sample</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Java Gateway Client Service</name>
+    <description>Gateway Client Service written in Java</description>
+	
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+		<dependency>
+            <groupId>com.athena.platform</groupId>
+            <artifactId>java-gateway-client</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+        </dependency>
+  		
+    </dependencies>
+
+    <properties>
+        <docker.target.dir>docker/</docker.target.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <start-class>com.athena.platform.gatewayclient.sample.AthenaEurekaClient</start-class>
+        <java.version>1.8</java.version>
+        <spring.boot.version>1.4.1.RELEASE</spring.boot.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>deploy-to-docker-directory</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${docker.target.dir}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}</directory>
+                                    <includes>
+                                        <include>**/*SNAPSHOT-spring-boot.jar</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-maven-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <goals>
+			                <goal>repackage</goal>
+			            </goals>
+			            <configuration>
+			                <classifier>spring-boot</classifier>
+			                <mainClass>
+			                  com.athena.platform.gatewayclient.sample.AthenaEurekaClient
+			                </mainClass>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
+        </plugins>
+    </build>
+</project>

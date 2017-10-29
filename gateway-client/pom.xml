@@ -1,0 +1,128 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>com.athena.platform</groupId>
+	<artifactId>java-gateway-client</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>java-gateway-client</name>
+	<description>Microservice SDK for java gateway client</description>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<mockito.version>1.10.19</mockito.version>
+		<powermock.version>1.6.5</powermock.version>
+		<spring.boot.maven>1.4.0.RELEASE</spring.boot.maven>
+	</properties>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-netflix</artifactId>
+				<version>1.2.4.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	 
+	<dependencies>
+
+		<!-- 
+		<dependency> 
+			<groupId>com.netflix.eureka</groupId> 
+			<artifactId>eureka-client</artifactId> 
+			<version>1.7.0</version> 
+		</dependency> 
+		<dependency> 
+			<groupId>com.netflix.archaius</groupId> 
+			<artifactId>archaius-core</artifactId> 
+			<version>0.7.3</version> 
+		</dependency> 
+		<dependency> 
+			<groupId>com.netflix.servo</groupId> 
+			<artifactId>servo-core</artifactId> 
+			<version>0.10.0</version> 
+		</dependency> 
+		-->
+		<dependency>
+			<groupId>com.athena.platform</groupId>
+			<artifactId>platform-configuration</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+		</dependency>
+		
+		<!-- Testing frameworks --> 
+		
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- 
+		<dependency> 
+			<groupId>org.springframework.boot</groupId> 
+			<artifactId>spring-boot-starter-test</artifactId> 
+			<scope>test</scope> 
+		</dependency> 
+		-->
+	</dependencies>
+
+	<build>
+		<plugins>
+			
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot.maven}</version>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

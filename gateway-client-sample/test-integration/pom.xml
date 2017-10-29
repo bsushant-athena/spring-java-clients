@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.athena.platform</groupId>
+  <artifactId>automation-tests-jenkins</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>automation-tests-jenkins</name>
+  <dependencies></dependencies>
+  <build>
+    <plugins>
+      <plugin>
+      <groupId>com.smartbear.soapui</groupId>
+      <artifactId>soapui-maven-plugin</artifactId>
+      <version>5.1.2-m-SNAPSHOT</version>
+      <configuration>
+        <!--soapUI project file location-->
+        <!--<projectFile>${athena.platform.test.file}</projectFile>-->
+        <!--Note this is done to run it locally -->
+        <projectFile>${project.basedir}/Gateway-Java-Client-Project-soapui-project.xml</projectFile>
+
+        <!-- this value needs to be set from Jenkins Environment variable -->
+        <projectProperties>
+          <!-- <value>Server_url=https://${gateway.host}:{gateway.port}</value> -->
+          <!--<projectProperty>${server.url}</projectProperty>-->
+          <projectProperty>Server_url=${server.url}</projectProperty>
+        </projectProperties>
+        <!--output file location-->
+        <outputFolder>${project.basedir}/output/</outputFolder>
+        <!--junit results file-->
+        <junitReport>true</junitReport>
+      </configuration>
+      <executions>
+        <execution>
+          <id>soapUI</id>
+           <phase>test</phase>
+          <goals>
+             <goal>test</goal>
+          </goals>
+        </execution>
+      </executions>
+      </plugin>
+    </plugins>
+</build>
+ <pluginRepositories>
+   <pluginRepository>
+      <id>eviwarePluginRepository</id>
+      <url>http://www.eviware.com/repository/maven2/</url>
+   </pluginRepository>
+</pluginRepositories>
+<properties>
+  <server.url>https://localhost:18443</server.url>
+</properties>
+</project>
